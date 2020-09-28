@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////!
-//!															  //!
-//! File : Node.cpp											  //!
-//!															  //!
-//! Auther : Sharun Sashikumar								  //!
-//!															  //!
-//! Brief : Basic Linked List class implementation			  //!
-//!															  //!
-//! Date : Sep 2020											  //!
-//!															  //!
-//!															  //!
+//!
+//! File : Node.cpp
+//!
+//! Auther : Sharun Sashikumar
+//!
+//! Brief : Basic Linked List class implementation
+//!
+//! Date : Sep 2020
+//!	
+//!
 ////////////////////////////////////////////////////////////////!
 
 //===============================================================
