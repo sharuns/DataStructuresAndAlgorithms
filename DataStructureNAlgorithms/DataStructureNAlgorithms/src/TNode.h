@@ -84,7 +84,8 @@ namespace tlinkedlist {
 		TNode<T>* SearchElementMtH(T ele);
 		//uint32_t MaximumElement(); // for this method need to device a comparison strategy
 		//void Insert(int index, int element);
-		//int Delete(int index);
+		int32_t DeleteNode(uint32_t index);
+		bool isSorted();
 		//int LengthLL();
 
 	};//TLikned List class 
@@ -308,6 +309,75 @@ namespace tlinkedlist {
 
 		return NULL;
 
+	}
+
+
+	//===============================================================
+	//!
+	//! brief : Method to delete a node at an given index
+	//!
+	//! args : uint32_t index
+	//!
+	//! return : success status
+	//!
+	template <typename T>
+	int32_t TLinkedList<T>::DeleteNode(uint32_t index) {
+
+		TNode<T>* _ptr, * _qtr = 0;
+		int32_t _status = -1;		//failure case is -1 else positive vale
+		if (index < 0 || index > CountOfNodes()) //invalid index
+			return 0;
+
+		//assuming index starts from 1
+		if (index == 1) {
+			_ptr = m_first;
+			m_first = m_first->next;
+			_status = _ptr->data;
+			delete _ptr;
+		}
+		else {
+			_ptr = m_first;
+
+			for (int i = 0; i < index - 1; i++)
+			{
+				_qtr = _ptr;
+				_ptr = _ptr->next;
+			}
+			_qtr->next = _ptr->next;
+			_status = _ptr->data;
+			delete _ptr;
+		}
+		return _status;
+	}
+
+	//===============================================================
+	//!
+	//! brief : Method to detect if the linked list is sorted
+	//!
+	//! args : --
+	//!
+	//! return : success status
+	//!
+	template<typename T>
+	bool TLinkedList<T>::isSorted() {
+
+		TNode<T>* _ptr = NULL;
+		TNode<T>* _tail = NULL;
+		if (m_first) {
+			_tail = m_first;
+			if (m_first->next)
+				_ptr = m_first->next;
+		}
+
+		while (_ptr) {
+
+			if (_ptr->data < _tail->data) {
+				return false;
+			}
+			_tail = _ptr;
+			_ptr = _ptr->next;
+		}
+		return true;
 	}
 
 }// end of namespace tlinkedlist

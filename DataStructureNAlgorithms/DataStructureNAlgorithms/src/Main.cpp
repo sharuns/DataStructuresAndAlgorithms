@@ -73,6 +73,13 @@ int main() {
 	else
 		std::cout << "Not Found" << std::endl;
 
+	//tobj.DeleteNode(2);
+	//tobj.Display();
+
+	if (tobj.isSorted())
+		std::cout << "Linked list sorted " << std::endl;
+	else std::cout << "Linked list not sorted " << std::endl;
+
 #endif 
 #ifdef _USE_NODE_CLASS
 
@@ -91,6 +98,13 @@ int main() {
 	obj.DisplayRec();
 	std::cout << std::endl;
 	std::cout << "Sum of Node : " << obj.SumofNodes() << std::endl;
+
+	//obj.DeleteNode(1);
+	//obj.Display();
+
+	if(obj.isSorted())
+	std::cout << "Linked list sorted " << std::endl;
+	else std::cout << "Linked list not sorted " << std::endl;
 	
 #endif
 	std::cout << std::endl 

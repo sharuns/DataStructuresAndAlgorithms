@@ -381,19 +381,74 @@ Node* LinkedList::SearchElementMtH(uint32_t _ele) {
 
 }
 
-#if 0
-int LinkedList::LengthLL()
-{
-	Node* p = first;
-	int len = 0;
 
-	while (p) {
-		len++;
-		p = p->next;
+//===============================================================
+//!
+//! brief : Method to delete a node at an given index
+//!
+//! args : uint32_t index
+//!
+//! return : success status
+//!
+int32_t LinkedList::DeleteNode(uint32_t index) {
+
+	Node* _ptr, * _qtr = 0;
+	int32_t _status = -1;		//failure case is -1 else positive vale
+	if (index < 0 || index > CountNodes()) //invalid index
+		return 0;
+
+	//assuming index starts from 1
+	if (index == 1) {
+		_ptr = m_first;
+		m_first = m_first->next;
+		_status = _ptr->data;
+		delete _ptr;
 	}
-	return len;
+	else {
+		_ptr = m_first;
+
+		for (int i = 0; i < index - 1; i++)
+		{
+			_qtr = _ptr;
+			_ptr = _ptr->next;
+		}
+		_qtr->next = _ptr->next;
+		_status = _ptr->data;
+		delete _ptr;
+	}
+	return _status;
 }
 
+//===============================================================
+//!
+//! brief : Method to detect if the linked list is sorted
+//!
+//! args : --
+//!
+//! return : success status
+//!
+bool LinkedList::isSorted() {
+
+	Node* _ptr = NULL;
+	Node* _tail = NULL;
+	if (m_first) {
+		_tail = m_first;
+		if (m_first->next)
+			_ptr = m_first->next;
+	}
+
+	while (_ptr) {
+
+		if (_ptr->data < _tail->data) {
+			return false;
+		}
+		_tail = _ptr;
+		_ptr = _ptr->next;
+	}
+	return true;
+}
+
+#if 0
 void LinkedList::Insert(int index, int element) {
 
 	Node* temp, * p = first;
@@ -418,35 +473,8 @@ void LinkedList::Insert(int index, int element) {
 		p->next = temp;
 	}
 }
+#endif  
 
-int LinkedList::Delete(int index) {
-
-	Node* p, * q = 0;
-	int x = -1;
-	if (index < 0 || index > LengthLL())
-		return 0 ;
-
-	if (index == 1) {
-		p = first;
-		first = first->next;
-		x = p->data;
-		delete p;
-	}
-	else {
-		p = first;
-
-		for (int i = 0; i < index - 1; i++)
-		{
-			q = p;
-			p = p->next;
-		}
-		q->next = p->next;
-		x = p->data;
-		delete p;
-	}
-	return x;
-}
-#endif
 //===============================================================
 //
 //===============================================================
