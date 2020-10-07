@@ -64,6 +64,7 @@ int main() {
 	
 	//****************************** TLinkedList class driver
 	TLinkedList<uint32_t> tobj;
+	tobj.ReverseLLEle();
 	tobj.CreateTLinkedListAddEnd();
 	tobj.Display();
 	std::cout << std::endl;
@@ -79,6 +80,10 @@ int main() {
 	if (tobj.isSorted())
 		std::cout << "Linked list sorted " << std::endl;
 	else std::cout << "Linked list not sorted " << std::endl;
+
+	tobj.ReverseLLNode();
+
+	tobj.Display();
 
 #endif 
 #ifdef _USE_NODE_CLASS
@@ -105,8 +110,13 @@ int main() {
 	if(obj.isSorted())
 	std::cout << "Linked list sorted " << std::endl;
 	else std::cout << "Linked list not sorted " << std::endl;
+
+
+	obj.ReverseLLNode();
+	obj.Display();
 	
 #endif
+
 	std::cout << std::endl 
 	<< "Press Enter to exit" <<  std::endl;
 	std::cin.get();

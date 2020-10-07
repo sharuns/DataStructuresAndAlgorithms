@@ -63,6 +63,8 @@ namespace linkedlist {
 		Node* SearchElementMtH(uint32_t ele);
 		int32_t DeleteNode(uint32_t index);
 		bool isSorted();
+		void ReverseLLEle();
+		void ReverseLLNode();
 
 		//TODO:
 		//void Insert(int index, int element);

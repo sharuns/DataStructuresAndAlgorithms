@@ -448,6 +448,69 @@ bool LinkedList::isSorted() {
 	return true;
 }
 
+//===============================================================
+//!
+//! brief : Method to reverse the elements of a linked list using aux array
+//!
+//! args : --
+//!
+void LinkedList::ReverseLLEle() {
+
+	Node* _ptr = m_first;
+	uint32_t _cnt = CountNodes();
+	if (_cnt) {
+		uint32_t* _aux = new uint32_t[_cnt];
+
+		for (uint32_t _nd = 0; _nd < _cnt; _nd++) {
+			_aux[_nd] = _ptr->data;
+			_ptr = _ptr->next;
+		}
+
+		_ptr = m_first;
+
+		for (int32_t _id = _cnt; _id > 0; _id--) {
+			_ptr->data = _aux[_id - 1];
+			_ptr = _ptr->next;
+		}
+
+	}
+
+}
+
+//===============================================================
+//!
+//! brief : Method to reverse the elements of a linked list by reversing the links
+//!
+//! args : --
+//!
+void LinkedList::ReverseLLNode() {
+
+	Node* _nxptr, *_rptr, *_curptr;
+	_rptr = _curptr = _nxptr = NULL;
+	
+	//using sliding pointers
+
+	if (m_first) {
+		_nxptr = m_first;
+		while (_nxptr) {
+		
+			_rptr = _curptr;
+			_curptr = _nxptr;
+			_nxptr = _nxptr->next;
+			_curptr->next = _rptr;
+		}
+	}
+	else {
+#ifdef ENABLE_LOG_PRINTS
+		std::cout << "Empty Linked List" << std::endl;
+#endif	
+		return; 
+	}
+
+	m_first = _curptr;
+
+}
+
 #if 0
 void LinkedList::Insert(int index, int element) {
 
