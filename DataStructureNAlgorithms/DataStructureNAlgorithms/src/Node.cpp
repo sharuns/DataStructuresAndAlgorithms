@@ -511,6 +511,43 @@ void LinkedList::ReverseLLNode() {
 
 }
 
+//===============================================================
+//!
+//! brief : Method to reverse the elements of a linked list by reversing the links via recursion
+//!
+//! args : first node, empty node pointer
+//!
+void LinkedList::ReverseLLRec(Node * _first, Node * _tail) {
+
+	if (_first) {
+		ReverseLLRec(_first->next,_first);
+		_first->next = _tail;
+	}
+	else {
+		m_first = _tail;
+	}
+}
+
+//===============================================================
+//!
+//! brief : Method to concatenate two linked list keeping the first node address of second linked list 
+//!
+//! args : second linked list
+//!
+void LinkedList::ConcatenateLL( Node* _second) {
+	Node * _first = m_first;
+	if (!_first) {
+#ifdef ENABLE_LOG_PRINTS
+		std::cout << "Empty Linked List" << std::endl;
+#endif
+		return;
+	}
+	while (_first->next) {
+		_first = _first->next;
+	}
+	_first->next = _second;
+}
+
 #if 0
 void LinkedList::Insert(int index, int element) {
 

@@ -15,8 +15,8 @@
 
 // Use a define to compile a version of ndoe class 
 
-#define _USE_TEMPLATE_CLASS
-//#define _USE_NODE_CLASS
+//#define _USE_TEMPLATE_CLASS
+#define _USE_NODE_CLASS
 
 //===============================================================
 
@@ -81,8 +81,14 @@ int main() {
 		std::cout << "Linked list sorted " << std::endl;
 	else std::cout << "Linked list not sorted " << std::endl;
 
-	tobj.ReverseLLNode();
+	//tobj.ReverseLLNode();
+	tobj.ReverseLLRec(tobj.getFirstNode());
 
+	TLinkedList<uint32_t> t2obj;
+	t2obj.CreateTLinkedListAddEnd();
+	t2obj.Display();
+
+	tobj.ConcatenateLL(t2obj.getFirstNode());
 	tobj.Display();
 
 #endif 
@@ -112,8 +118,13 @@ int main() {
 	else std::cout << "Linked list not sorted " << std::endl;
 
 
-	obj.ReverseLLNode();
-	obj.Display();
+	//obj.ReverseLLNode();
+	obj.ReverseLLRec(obj.getFirstNode());
+	LinkedList obj2;
+	obj2.CreateLinkedListAddEnd();
+	//obj2.ConcatenateLL(obj.getFirstNode());
+
+	obj2.Display();
 	
 #endif
 

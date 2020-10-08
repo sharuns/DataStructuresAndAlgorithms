@@ -59,13 +59,15 @@ namespace linkedlist {
 		uint32_t CountNodes();
 		uint32_t SumofNodes();
 		uint32_t MaximumElement(); //assuming we are storing only positive numbers
-		Node* SearchElement(uint32_t ele);
-		Node* SearchElementMtH(uint32_t ele);
-		int32_t DeleteNode(uint32_t index);
+		Node* SearchElement(uint32_t _ele);
+		Node* SearchElementMtH(uint32_t _ele);
+		int32_t DeleteNode(uint32_t _index);
 		bool isSorted();
 		void ReverseLLEle();
 		void ReverseLLNode();
-
+		void ReverseLLRec(Node * _f1irst, Node * _tail = NULL);
+		Node* getFirstNode() {return m_first;}
+		void ConcatenateLL( Node* _second);
 		//TODO:
 		//void Insert(int index, int element);
 		//int Delete(int index);

@@ -88,6 +88,9 @@ namespace tlinkedlist {
 		bool isSorted();
 		void ReverseLLEle();
 		void ReverseLLNode();
+		TNode<T>* getFirstNode() { return m_first; }
+		void ReverseLLRec(TNode<T>*, TNode<T>* tail = NULL);
+		void ConcatenateLL(TNode<T>* _second);
 		//int LengthLL();
 
 	};//TLikned List class 
@@ -446,6 +449,47 @@ namespace tlinkedlist {
 
 		m_first = _curptr;
 
+	}
+
+
+	//===============================================================
+	//!
+	//! brief : Method to reverse the elements of a linked list by reversing the links via recursion
+	//!
+	//! args : first node, empty node pointer
+	//!
+	template<typename T>
+	void TLinkedList<T>::ReverseLLRec(TNode<T>* _first, TNode<T>* _tail) {
+
+		if (_first) {
+			ReverseLLRec(_first->next, _first);
+			_first->next = _tail;
+		}
+		else {
+			m_first = _tail;
+		}
+	}
+
+
+	//===============================================================
+	//!
+	//! brief : Method to concatenate two linked list keeping the first node address of second linked list 
+	//!
+	//! args : second LL
+	//!
+	template<typename T>
+	void TLinkedList<T>::ConcatenateLL(TNode<T>* _second) {
+		TNode<T>* _first = m_first;
+		if (!_first) {
+#ifdef ENABLE_LOG_PRINTS
+			std::cout << "Empty Linked List" << std::endl;
+#endif
+			return;
+		}
+		while (_first->next) {
+			_first = _first->next;
+		}
+		_first->next = _second;
 	}
 
 }// end of namespace tlinkedlist
