@@ -55,6 +55,7 @@ namespace tlinkedlist {
 		TNode* next;
 	};  
 
+
 	//===============================================================
 	//!
 	//! brief : template Linked List class
@@ -91,6 +92,8 @@ namespace tlinkedlist {
 		TNode<T>* getFirstNode() { return m_first; }
 		void ReverseLLRec(TNode<T>*, TNode<T>* tail = NULL);
 		void ConcatenateLL(TNode<T>* _second);
+		TNode<T>* MergeLL(TNode<T>* _secondLL); //assuming sorted linked list
+		bool isLooped();
 		//int LengthLL();
 
 	};//TLikned List class 
@@ -490,6 +493,99 @@ namespace tlinkedlist {
 			_first = _first->next;
 		}
 		_first->next = _second;
+	}
+
+	//===============================================================
+	//!
+	//! brief : Method to merge two sorted linked list
+	//!
+	//! args : second linked list
+	//!
+	//! returns : first node of merged linked list
+	template<typename T>
+	TNode<T>* TLinkedList<T>::MergeLL(TNode<T>* _secondll) {
+
+		TNode<T>* _firstll, * _mergell,* _mergefirstNode;
+		_mergefirstNode = NULL;
+
+
+		if ((!m_first) || (!_secondll)) {
+#ifdef ENABLE_LOG_PRINTS
+			std::cout << "Empty Linked List detected" << std::endl;
+#endif
+			return NULL;
+		}
+
+		_firstll = m_first;
+		_mergell = NULL;
+
+		if (_firstll->data <= _secondll->data) {
+			_mergell = _firstll;
+			_mergefirstNode = _mergell;
+			_firstll = _firstll->next;
+			_mergell->next = NULL;
+		}
+		else {
+			_mergell = _secondll;
+			_mergefirstNode = _mergell;
+			_secondll = _secondll->next;
+			_mergell->next = NULL;
+		}
+
+		while ((_firstll) && (_secondll)) {
+
+			if (_firstll->data <= _secondll->data) {
+				_mergell->next = _firstll;
+				_mergell = _firstll;
+				_firstll = _firstll->next;
+				_mergell->next = NULL;
+			}
+			else {
+				_mergell->next = _secondll;
+				_mergell = _secondll;
+				_secondll = _secondll->next;
+				_mergell->next = NULL;
+			}
+		}
+
+		if (_firstll) {
+			_mergell->next = _firstll;
+		}
+		else {
+			_mergell->next = _secondll;
+		}
+
+		return _mergefirstNode;
+	}
+
+	//===============================================================
+	//!
+	//! brief : Method to find if a linked list is looped
+	//!
+	//! args : --
+	//!
+	//! returns : status if looped or not
+	template<typename T>
+	bool TLinkedList<T>::isLooped() {
+
+		TNode<T>* _first, * _second;
+		if (!m_first) {
+#ifdef ENABLE_LOG_PRINTS
+			std::cout << "Empty Linked List" << std::endl;
+#endif
+			return false;
+		}
+
+		_first = _second = m_first;
+		do {
+
+			_first = _first->next;
+			_second = _second->next;
+			_first = _first ? _first->next : _first;
+
+		} while (_first && _second && _first != _second);
+
+		return (_first == _second);
 	}
 
 }// end of namespace tlinkedlist

@@ -21,7 +21,6 @@
 //						INCLUDES
 //===============================================================
 
-
 namespace linkedlist {
 
 //===============================================================
@@ -68,6 +67,8 @@ namespace linkedlist {
 		void ReverseLLRec(Node * _f1irst, Node * _tail = NULL);
 		Node* getFirstNode() {return m_first;}
 		void ConcatenateLL( Node* _second);
+		Node* MergeLL(Node * _secondLL); //assuming the linked list are already sorted
+		bool isLooped();
 		//TODO:
 		//void Insert(int index, int element);
 		//int Delete(int index);

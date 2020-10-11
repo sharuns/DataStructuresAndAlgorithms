@@ -15,8 +15,8 @@
 
 // Use a define to compile a version of ndoe class 
 
-//#define _USE_TEMPLATE_CLASS
-#define _USE_NODE_CLASS
+#define _USE_TEMPLATE_CLASS
+//#define _USE_NODE_CLASS
 
 //===============================================================
 
@@ -47,7 +47,32 @@ using namespace linkedlist;
 //===============================================================
 //						  DATA
 //===============================================================
+#ifdef _USE_TEMPLATE_CLASS
+template< class T>
+#endif
+void DisplayLinkedList(
+#ifdef _USE_TEMPLATE_CLASS
+	TNode<T>*
+	#endif
+#ifdef _USE_NODE_CLASS
+	Node*
+#endif
+	_ptr) 
+{
 
+	if (_ptr == NULL) {
+#ifdef ENABLE_LOG_PRINTS
+		_Log("Empty Linked List");
+#endif
+		return;
+	}
+
+	while (_ptr) {
+		std::cout << _ptr->data << " ";
+		_ptr = _ptr->next;
+	}
+	std::cout << std::endl;
+}
 //===============================================================
 //
 //===============================================================
@@ -64,15 +89,17 @@ int main() {
 	
 	//****************************** TLinkedList class driver
 	TLinkedList<uint32_t> tobj;
+	TNode<uint32_t>* ret = NULL;
 	tobj.ReverseLLEle();
 	tobj.CreateTLinkedListAddEnd();
 	tobj.Display();
 	std::cout << std::endl;
 
-	if (tobj.SearchElement(23))
+	/*if (tobj.SearchElement(23))
 		std::cout << "Found" << std::endl;
 	else
 		std::cout << "Not Found" << std::endl;
+		*/
 
 	//tobj.DeleteNode(2);
 	//tobj.Display();
@@ -82,33 +109,40 @@ int main() {
 	else std::cout << "Linked list not sorted " << std::endl;
 
 	//tobj.ReverseLLNode();
-	tobj.ReverseLLRec(tobj.getFirstNode());
+	//tobj.ReverseLLRec(tobj.getFirstNode());
 
 	TLinkedList<uint32_t> t2obj;
 	t2obj.CreateTLinkedListAddEnd();
-	t2obj.Display();
 
-	tobj.ConcatenateLL(t2obj.getFirstNode());
-	tobj.Display();
+	if (t2obj.isSorted()) {
+		std::cout << "Linked list sorted " << std::endl;
+		t2obj.Display();
+		ret = tobj.MergeLL(t2obj.getFirstNode());
+	}
+	else std::cout << "Linked list not sorted " << std::endl;
+
+	//tobj.ConcatenateLL(t2obj.getFirstNode());
+	DisplayLinkedList(ret);
 
 #endif 
 #ifdef _USE_NODE_CLASS
 
 	//===============================================================
-	LinkedList obj;	
+	LinkedList obj;
+	Node* ret;
 	obj.Display();					  //Empty Linked list
-	obj.CreateLinkedListAddEnd();
+	obj.CreateLinkedSortedList();
 	obj.Display();
 	std::cout << std::endl;
 	
-	if (obj.SearchElementMtH(23))
+	/*if (obj.SearchElementMtH(23))
 		std::cout << "Found" << std::endl;
 	else
 		std::cout << "Not Found" << std::endl;
-
-	obj.DisplayRec();
-	std::cout << std::endl;
-	std::cout << "Sum of Node : " << obj.SumofNodes() << std::endl;
+		*/
+	//obj.DisplayRec();
+	//std::cout << std::endl;
+	//std::cout << "Sum of Node : " << obj.SumofNodes() << std::endl;
 
 	//obj.DeleteNode(1);
 	//obj.Display();
@@ -119,12 +153,12 @@ int main() {
 
 
 	//obj.ReverseLLNode();
-	obj.ReverseLLRec(obj.getFirstNode());
+	//obj.ReverseLLRec(obj.getFirstNode());
 	LinkedList obj2;
-	obj2.CreateLinkedListAddEnd();
+	obj2.CreateLinkedSortedList();
 	//obj2.ConcatenateLL(obj.getFirstNode());
-
-	obj2.Display();
+	ret = obj.MergeLL(obj2.getFirstNode());
+	DisplayLinkedList(ret);
 	
 #endif
 
